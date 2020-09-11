@@ -1,0 +1,42 @@
+package com.geekbrains.krilov.context.app;
+
+import org.springframework.stereotype.Component;
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+@Component
+public class ProductRepository {
+    private List<Item> itemList;
+
+    @PostConstruct
+    public void init() {
+        this.itemList = new ArrayList<>(Arrays.asList(
+                new Item(1L, "Bread", 25),
+                new Item(2L, "Milk", 80),
+                new Item(3L, "Cheese", 900),
+                new Item(4L, "Eggs", 120),
+                new Item(5L, "Coffee", 450)
+        ));
+        System.out.println("Product repository filled with items");
+    }
+
+    public List<Item> getAllItems() {
+        return Collections.unmodifiableList(itemList);
+    }
+
+    public Item findItemById(Long id) {
+        for (Item i : itemList) {
+            if (i.getId() == id) {
+                return i;
+            }
+        }
+        throw new RuntimeException("Item not found");
+    }
+
+    public void addNewItem(Item item) {
+        itemList.add(item);
+    }
+}
