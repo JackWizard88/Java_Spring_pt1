@@ -20,7 +20,7 @@ public class ProductRepository {
                 new Item(4L, "Eggs", 120),
                 new Item(5L, "Coffee", 450)
         ));
-        System.out.println("Product repository filled with items");
+        System.out.println("Trucks arrived and filled our shop with items");
     }
 
     public List<Item> getAllItems() {

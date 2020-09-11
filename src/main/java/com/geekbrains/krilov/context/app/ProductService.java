@@ -16,6 +16,7 @@ public class ProductService {
     private final String CART_LIST_COMMAND = "/cart";
     private final String PUT_TO_CART_COMMAND = "/put";
     private final String DELETE_FROM_CART_COMMAND = "/delete";
+    private final String BUY_CART_COMMAND = "/buy";
     private final String NEW_CART_COMMAND = "/new";
     private final String HELP_COMMAND = "/help";
     private final String NO_SUCH_COMMAND = "no such command";
@@ -65,12 +66,21 @@ public class ProductService {
                 getNewCart();
                 continue;
             }
+            if (command.startsWith(BUY_CART_COMMAND)) {
+                buyCart();
+                continue;
+            }
             if (command.startsWith(HELP_COMMAND)) {
                 typeCommandList();
                 continue;
             }
             System.out.println(NO_SUCH_COMMAND);
         }
+    }
+
+    private void buyCart() {
+        System.out.println("Products from your cart were packed and sent. Total price: " + cart.getCartSumm() + " Rub.");
+        getNewCart();
     }
 
     private void getNewCart() {
@@ -109,8 +119,9 @@ public class ProductService {
                 "%s - shows list of products in the current cart" +
                 "%s id - put item with id in your cart \n" +
                 "%s id - removes item with id from your cart \n" +
+                "%s - buy items from cart and deliver them to your address \n" +
                 "%s - creates new cart \n" +
-                "%s - to close app", HELP_COMMAND, PRODUCT_LIST_COMMAND, CART_LIST_COMMAND, PUT_TO_CART_COMMAND, DELETE_FROM_CART_COMMAND, NEW_CART_COMMAND, EXIT_COMMAND));
+                "%s - close app", HELP_COMMAND, PRODUCT_LIST_COMMAND, CART_LIST_COMMAND, PUT_TO_CART_COMMAND, DELETE_FROM_CART_COMMAND, BUY_CART_COMMAND, NEW_CART_COMMAND, EXIT_COMMAND));
     }
 
 }

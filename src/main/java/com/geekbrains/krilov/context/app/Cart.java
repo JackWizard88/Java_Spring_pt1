@@ -10,13 +10,13 @@ import java.util.List;
 @Scope("prototype")
 public class Cart {
     private long id;
-    private static long counter = 0;
+    private static long counter = 1;
     private List<Item> itemList = new ArrayList<>();
     private ProductRepository productRepository;
 
     public Cart(ProductRepository productRepository) {
         this.id = counter++;
-        System.out.println("Created new Cart id: " + id);
+        System.out.println("Created new Cart (#" + id + ") for you. Have a nice day!" );
         this.productRepository = productRepository;
     }
 
@@ -40,5 +40,13 @@ public class Cart {
 
     public List<Item> getCartList() {
         return itemList;
+    }
+
+    public double getCartSumm() {
+        double summ = 0;
+        for (Item item : itemList) {
+            summ += item.getPrice();
+        }
+        return summ;
     }
 }
