@@ -2,7 +2,6 @@ package com.geekbrains.krilov.context.app;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,26 +15,22 @@ public class Cart {
 
     public Cart(ProductRepository productRepository) {
         this.id = counter++;
-        System.out.println("Created new Cart (#" + id + ") for you. Have a nice day!" );
+        System.out.println("Created new Cart (#" + id + ")" );
         this.productRepository = productRepository;
     }
 
-    public void addToCart(Long itemId) {
-        try {
-            itemList.add(productRepository.findItemById(itemId));
-            System.out.println("Item added to Cart");
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-        }
+    public void addToCart(Long itemId) throws ProductNotFoundException {
+        itemList.add(productRepository.findItemById(itemId));
     }
 
-    public void deleteFromCart(Long itemId) {
-        try {
-            itemList.remove(productRepository.findItemById(itemId));
-            System.out.println("Item removed from your Cart");
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
+    public void deleteFromCart(Long itemId) throws ProductNotFoundException {
+        for (Item i : itemList) {
+            if (i.getId() == itemId) {
+                itemList.remove(i);
+                return;
+            }
         }
+        throw new ProductNotFoundException("No such item in your Cart");
     }
 
     public List<Item> getCartList() {

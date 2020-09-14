@@ -33,7 +33,7 @@ public class ProductRepository {
                 return i;
             }
         }
-        throw new RuntimeException("Item not found");
+        throw new ProductNotFoundException("Item not found on our store");
     }
 
     public void addNewItem(Item item) {

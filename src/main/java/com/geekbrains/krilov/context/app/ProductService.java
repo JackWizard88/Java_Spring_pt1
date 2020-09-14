@@ -95,8 +95,9 @@ public class ProductService {
         try {
             long itemId = Long.parseLong(command.split(" ")[1]);
             cart.deleteFromCart(itemId);
-        } catch (Exception e) {
-            System.out.println("wrong ID");
+            System.out.println("Item removed from your Cart");
+        } catch (ProductNotFoundException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -104,8 +105,9 @@ public class ProductService {
         try {
             long itemId = Long.parseLong(command.split(" ")[1]);
             cart.addToCart(itemId);
-        } catch (Exception e) {
-            System.out.println("wrong ID");
+            System.out.println("Item added to Cart");
+        } catch (ProductNotFoundException e) {
+            System.out.println(e.getMessage());
         }
     }
 
